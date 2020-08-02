@@ -31,6 +31,7 @@ const Reimbursements = () => {
       <TouchableOpacity onPress={handleNavigateToBack}>
         <Icon name="arrow-left" size={24} color="#6D008E" />
       </TouchableOpacity>
+
       <Text style={styles.titlePage}>Reembolsos</Text>
 
       <View style={styles.main}>
@@ -47,18 +48,18 @@ const Reimbursements = () => {
 
         <FlatList
           data={incidents.results}
-          keyExtractor={incident => String(incident.document_id)}
+          keyExtractor={incident => String(incident.document_number)}
           showsVerticalScrollIndicator={false}
           renderItem={({ item: incident }) => (
             <View style={styles.incident}>
               <View style={styles.incidentIconText}>
-                <Icon name="user" onPress={handleNavigateToDetail} size={20} color="#6D008E" style={styles.incidentIcon} />
+                <Icon name="user" size={20} color="#6D008E" style={styles.incidentIcon} />
                 <Text style={styles.incidentText}>Dep. {incident.congressperson_name}</Text>
               </View>
 
               <View style={styles.incidentIconText}>
                 <Icon name="save" size={20} color="#6D008E" style={styles.incidentIcon} />
-                <Text style={styles.incidentText}>{incident.document_id}</Text>
+                <Text style={styles.incidentText}>{incident.document_id ? incident.document_id : "Não informado"}</Text>
               </View>
 
               <View style={styles.incidentIconText}>
@@ -71,10 +72,10 @@ const Reimbursements = () => {
                 <Text style={styles.incidentText}>{incident.document_value}</Text>
               </View>
 
-              <View style={styles.incidentDetail}>
+              <TouchableOpacity onPress={handleNavigateToDetail} style={styles.incidentDetail}>
                 <Text style={styles.incidentTextDetail}>Ver mais detalhes</Text>
                 <Icon name="arrow-right" size={20} color="#6D008E" style={styles.incidentIconDetail} />
-              </View>
+              </TouchableOpacity>
             </View>
           )}
         />
@@ -111,7 +112,6 @@ const styles = StyleSheet.create({
     color: '#6D008E',
     fontFamily: 'Ubuntu_700Bold',
     fontSize: 32,
-    maxWidth: 260,
     marginTop: 20,
   },
 
