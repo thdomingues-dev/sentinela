@@ -32,7 +32,7 @@ const Reimbursements = () => {
         <Icon name="arrow-left" size={24} color="#6D008E" />
       </TouchableOpacity>
 
-      <Text style={styles.titlePage}>Reembolsos</Text>
+      <Text style={styles.titlePage}>Todos Reembolsos</Text>
 
       <View style={styles.main}>
         <View style={styles.search}>
@@ -80,23 +80,6 @@ const Reimbursements = () => {
           )}
         />
       </View>
-
-      <View style={styles.footer}>
-        <View style={styles.footerIcon}>
-          <Icon name="map" onPress={() => { }} size={32} color="#6D008E" />
-          <Text style={styles.iconText}>Região</Text>
-        </View>
-
-        <View style={styles.footerIcon}>
-          <Icon name="check-square" onPress={() => { }} size={32} color="#6D008E" />
-          <Text style={styles.iconText}>Verificado</Text>
-        </View>
-
-        <View style={styles.footerIcon}>
-          <Icon name="more-vertical" onPress={() => { }} size={32} color="#6D008E" />
-          <Text style={styles.iconText}>Sobre</Text>
-        </View>
-      </View>
     </View>
   );
 }
@@ -111,7 +94,7 @@ const styles = StyleSheet.create({
   titlePage: {
     color: '#6D008E',
     fontFamily: 'Ubuntu_700Bold',
-    fontSize: 32,
+    fontSize: 26,
     marginTop: 20,
   },
 
@@ -211,3 +194,24 @@ const styles = StyleSheet.create({
 });
 
 export default Reimbursements;
+
+/*
+
+<View style={styles.footer}>
+        <View style={styles.footerIcon}>
+          <Icon name="map" onPress={() => { }} size={32} color="#6D008E" />
+          <Text style={styles.iconText}>Região</Text>
+        </View>
+
+        <View style={styles.footerIcon}>
+          <Icon name="check-square" onPress={() => { }} size={32} color="#6D008E" />
+          <Text style={styles.iconText}>Verificado</Text>
+        </View>
+
+        <View style={styles.footerIcon}>
+          <Icon name="more-vertical" onPress={() => { }} size={32} color="#6D008E" />
+          <Text style={styles.iconText}>Sobre</Text>
+        </View>
+      </View>
+
+*/
