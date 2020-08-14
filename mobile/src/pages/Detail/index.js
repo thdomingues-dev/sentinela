@@ -1,14 +1,21 @@
 import React from 'react';
 import { Feather as Icon } from '@expo/vector-icons';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 
 const Detail = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const incident = route.params.incident;
 
   function handleNavigateToBack() {
     navigation.goBack();
+  }
+
+  function handleLinkToWeb(url) {
+    Linking.openURL(`${url}`);
   }
 
   return (
@@ -20,82 +27,82 @@ const Detail = () => {
       <Text style={styles.titlePage}>Detalhes do reembolso</Text>
 
       <View style={styles.main}>
-
-
         <View style={styles.detailPerson}>
           <View style={styles.detailBox}>
             <Icon name="user" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>Deputado: Jair Messias Bolsonaro</Text>
+            <Text style={styles.detailContent}>Deputado: {incident.congressperson_name}</Text>
           </View>
 
           <View style={styles.detailBox}>
             <View style={styles.detailBox}>
               <Icon name="flag" size={20} color="#6D008E" style={styles.detailIcon} />
-              <Text style={styles.detailContent}>Partido: PSOL</Text>
+              <Text style={styles.detailContent}>Partido: {incident.party}</Text>
             </View>
 
             <View style={styles.detailBox}>
               <Icon name="map-pin" size={20} color="#6D008E" style={styles.detailIcon} />
-              <Text style={styles.detailContent}>Estado: RJ</Text>
+              <Text style={styles.detailContent}>Estado: {incident.state}</Text>
             </View>
           </View>
 
           <View style={styles.detailBox}>
             <Icon name="calendar" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>Mandato: 2019</Text>
+            <Text style={styles.detailContent}>Mandato: {incident.term}</Text>
           </View>
         </View>
 
         <View style={styles.detailDocument}>
           <View style={styles.detailBox}>
             <Icon name="users" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>Fornecedor: SEGIMA AUTO POSTO LTDA</Text>
+            <Text style={styles.detailContent}>Fonte: {incident.supplier}</Text>
           </View>
 
           <View style={styles.detailBox}>
             <Icon name="file-text" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>CNPJ/CPF: 78103082000197</Text>
+            <Text style={styles.detailContent}>CNPJ/CPF: {incident.cnpj_cpf}</Text>
           </View>
 
           <View style={styles.detailBox}>
             <Icon name="save" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>Doc: 7074966</Text>
+            <Text style={styles.detailContent}>Doc: {incident.document_id ? incident.document_id : incident.document_number}</Text>
           </View>
 
           <View style={styles.detailBox}>
             <Icon name="info" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>Descrição: Entrega Sedex</Text>
+            <Text style={styles.detailContent}>Descrição: {incident.subquota_description}</Text>
           </View>
 
           <View style={styles.detailBox}>
             <Icon name="calendar" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>Data: 2020-07-24</Text>
+            <Text style={styles.detailContent}>Data: {incident.issue_date}</Text>
           </View>
 
           <View style={styles.detailBox}>
             <Icon name="dollar-sign" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>Valor: 15000</Text>
+            <Text style={styles.detailContent}>Valor: {incident.document_value}</Text>
           </View>
 
           <View style={styles.detailBox}>
             <Icon name="link" size={20} color="#6D008E" style={styles.detailIcon} />
-            <Text style={styles.detailContent}>URL: link</Text>
+            <TouchableOpacity onPress={() => handleLinkToWeb(incident.receipt.url)}>
+              <Text style={styles.detailContent}>Abrir documento</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
 
       <View style={styles.footer}>
         <RectButton style={styles.button} onPress={() => { }}>
-          <Icon name="twitter" size={18} color="#FFF" style={styles.buttonIcon} />
+          <Icon name="share-2" size={18} color="#FFF" style={styles.buttonIcon} />
           <Text style={styles.buttonText}>Compartilhar</Text>
         </RectButton>
 
         <RectButton style={styles.button} onPress={() => { }}>
           <Icon name="send" size={18} color="#FFF" style={styles.buttonIcon} />
-          <Text style={styles.buttonText}>Denunciar</Text>
+          <Text style={[styles.buttonText, { marginLeft: 6 }]}>Denunciar</Text>
         </RectButton>
       </View>
-    </View>
+    </View >
   );
 };
 

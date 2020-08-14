@@ -5,21 +5,44 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 const Reimbursements = () => {
-  const [incidents, setIncidents] = useState({});
+  const [incidents, setIncidents] = useState([]);
+  const [page, setPage] = useState(7);
+
+  const [numberTaps, setNumberTaps] = useState([0]);
+
+  const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
 
   function handleNavigateToBack() {
     return navigation.goBack();
   }
 
-  function handleNavigateToDetail() {
-    return navigation.navigate('Detail');
+  function handleNavigateToDetail(incident) {
+    return navigation.navigate('Detail', { incident });
   }
 
   async function loadIncidents() {
-    const response = await axios.get('https://jarbas.serenata.ai/api/chamber_of_deputies/reimbursement/');
+    const response = await axios.get(`https://jarbas.serenata.ai/api/chamber_of_deputies/reimbursement/`);
 
-    setIncidents(response.data);
+    setIncidents(response.data.results);
+  }
+
+  async function loadMoreIncidents() {
+    if (loading) return;
+
+    setLoading(true);
+
+    if (numberTaps.includes(page)) {
+      return;
+    } else {
+      setNumberTaps([...numberTaps, page]);
+
+      const response = await axios.get(`https://jarbas.serenata.ai/api/chamber_of_deputies/reimbursement?offset=${page}`);
+      setIncidents([...incidents, ...response.data.results]);
+      setPage(page + 7);
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -47,9 +70,10 @@ const Reimbursements = () => {
         </View>
 
         <FlatList
-          data={incidents.results}
-          keyExtractor={incident => String(incident.document_number)}
-          showsVerticalScrollIndicator={false}
+          data={incidents}
+          keyExtractor={incident => String(incident.document_number + Math.floor(Math.random() * 1000))}
+          onEndReached={loadMoreIncidents}
+          onEndReachedThreshold={0.2}
           renderItem={({ item: incident }) => (
             <View style={styles.incident}>
               <View style={styles.incidentIconText}>
@@ -72,7 +96,7 @@ const Reimbursements = () => {
                 <Text style={styles.incidentText}>{incident.document_value}</Text>
               </View>
 
-              <TouchableOpacity onPress={handleNavigateToDetail} style={styles.incidentDetail}>
+              <TouchableOpacity onPress={() => handleNavigateToDetail(incident)} style={styles.incidentDetail}>
                 <Text style={styles.incidentTextDetail}>Ver mais detalhes</Text>
                 <Icon name="arrow-right" size={20} color="#6D008E" style={styles.incidentIconDetail} />
               </TouchableOpacity>

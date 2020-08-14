@@ -10,7 +10,7 @@ const Home = () => {
   const navigation = useNavigation();
 
   function handleNavigateToReimbursements() {
-    return navigation.navigate('Reimbursements');
+    return navigation.navigate('Filters');
   }
 
   return (
