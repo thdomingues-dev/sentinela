@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     color: '#6C6C80',
     fontFamily: 'Roboto_400Regular',
     fontSize: 14,
-    lineHeight: 16,
+    lineHeight: 18,
     marginBottom: 8,
   },
 
@@ -65,6 +65,10 @@ const styles = StyleSheet.create({
 
   searchActionText: {
     marginLeft: 4,
+    fontWeight: 'bold',
+    color: '#fff',
+    fontFamily: 'Roboto_400Regular',
+    textAlign: 'center',
   }
 });
 

@@ -12,6 +12,10 @@ const Filters = () => {
     return navigation.navigate('Reimbursements');
   }
 
+  function handleNavigateToSuspicions() {
+    return navigation.navigate('Suspicions');
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titlePage}>Filtros{'\n'}disponíveis para busca</Text>
@@ -21,27 +25,30 @@ const Filters = () => {
       <View style={styles.main}>
         <View style={styles.boxGrid}>
           <View style={styles.searchBox}>
-            <Text style={styles.searchTitle}>Buscar todos reembolsos</Text>
+            <Text style={styles.searchTitle}>Buscar{'\n'}todos reembolsos</Text>
             <Text style={styles.searchDescription}>
-              Todos os casos suspeitos, inclusive
-              os confirmados
+              Todos os casos suspeitos e
+              confirmados
             </Text>
 
             <TouchableOpacity onPress={handleNavigateToReimbursements} style={styles.searchAction}>
-              <Icon name="search" size={18} style={{ color: '#6D008E' }} />
-              <Text style={styles.searchActionText}>Selecionar</Text>
+              <View style={{ width: '100%', backgroundColor: '#6D008E', borderRadius: 8, justifyContent: 'center', padding: 2, }}>
+                <Text style={styles.searchActionText}>Filtrar</Text>
+              </View>
             </TouchableOpacity>
           </View>
 
           <View style={styles.searchBox}>
             <Text style={styles.searchTitle}>Buscar apenas suspeitos</Text>
             <Text style={styles.searchDescription}>
-              Todos os casos suspeitos e confirmados
+              Todos os casos suspeitos
+              que foram confirmados
             </Text>
 
-            <TouchableOpacity style={styles.searchAction}>
-              <Icon name="search" size={18} style={{ color: '#6D008E' }} />
-              <Text style={styles.searchActionText}>Selecionar</Text>
+            <TouchableOpacity onPress={handleNavigateToSuspicions} style={styles.searchAction}>
+              <View style={{ width: '100%', backgroundColor: '#6D008E', borderRadius: 8, justifyContent: 'center', padding: 2, }}>
+                <Text style={styles.searchActionText}>Filtrar</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -54,8 +61,9 @@ const Filters = () => {
             </Text>
 
             <TouchableOpacity style={styles.searchAction}>
-              <Icon name="search" size={18} style={{ color: '#6D008E' }} />
-              <Text style={styles.searchActionText}>Selecionar</Text>
+              <View style={{ width: '100%', backgroundColor: '#6D008E', borderRadius: 8, justifyContent: 'center', padding: 2, }}>
+                <Text style={styles.searchActionText}>Filtrar</Text>
+              </View>
             </TouchableOpacity>
           </View>
 
@@ -66,8 +74,9 @@ const Filters = () => {
             </Text>
 
             <TouchableOpacity style={styles.searchAction}>
-              <Icon name="search" size={18} style={{ color: '#6D008E' }} />
-              <Text style={styles.searchActionText}>Selecionar</Text>
+              <View style={{ width: '100%', backgroundColor: '#6D008E', borderRadius: 8, justifyContent: 'center', padding: 2, }}>
+                <Text style={styles.searchActionText}>Filtrar</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
